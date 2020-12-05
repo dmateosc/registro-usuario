@@ -45,7 +45,7 @@ var UserController = {
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
-    today = mm + "/" + dd + "/" + yyyy;
+    today = `${yyyy}-${mm}-${dd}`;
     var dniUsuario = req.body.params.dni;
     User.findOneAndUpdate(
       {
@@ -90,13 +90,15 @@ var UserController = {
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
-    today = mm + "/" + dd + "/" + yyyy;
+    today = `${yyyy}-${mm}-${dd}`;
 
     User.find({ "fecha.dia": today }, (err, userExist) => {
       return res.status(200).send({
-        user: userExist.map((c) => {
+        users: userExist.map((c) => {
           return {
             user: c.usuario,
+            dni: c.dni,
+            telefono: c.telefono,
             fecha: c.fecha.filter((c) => {
               if (c.dia == today) {
                 return c;
@@ -109,17 +111,30 @@ var UserController = {
     });
   },
   getUserFecha: function (req, res) {
-    var diaObtenido = req.param.dia;
+    console.log(req.query)
+    var diaObtenido = req.query.dia;
 
     var today = new Date(diaObtenido);
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
-    today = mm + "/" + dd + "/" + yyyy;
+    today = `${yyyy}-${mm}-${dd}`;
 
-    User.find({ fecha: { dia: today } }, (err, userExist) => {
+    User.find({ "fecha.dia": today }, (err, userExist) => {
       return res.status(200).send({
-        users: userExist,
+        users: userExist.map((c) => {
+          return {
+            user: c.usuario,
+            dni: c.dni,
+            telefono: c.telefono,
+            fecha: c.fecha.filter((c) => {
+              if (c.dia == today) {
+                return c;
+              }
+            })[0],
+          };
+
+        }),
       });
     });
   },

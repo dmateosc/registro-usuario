@@ -14,11 +14,13 @@ const UsuarioDia = (props) =>{
         const response = await axios.get(url);
         const { users } = response.data;
         const arrayUsuarios = [];
-        users.forEach(({ usuario, telefono, dni }) => {
+        users.forEach(({ user, telefono, dni, fecha}) => {
           const usuarios = {
-            usuario: usuario,
+            user: user,
             dni: dni,
             telefono: telefono,
+            dia: fecha.dia,
+            hora: fecha.hora
           };
           setallUser((allUser) => [...allUser, usuarios]);
           
@@ -35,19 +37,27 @@ const UsuarioDia = (props) =>{
   } else {
     
     return (
-      <>
-          {allUser.map((element) => {
-            return (<div>
-              {`Nombre: ${element.usuario}
+      <Grid container justify="center" xs={8} alignItems="center">
+        <Grid item xs={8}>
+         {`Usuarios Día: ${new Date().getDate()} del ${new Date().getMonth()} de ${new Date().getFullYear()}`}
+         <hr/>
+        </Grid>
 
-              Telefono: ${element.telefono}`} 
+          {allUser.map((element) => {
+            return (
+            <Grid item xs={8}>
+            <div key={element.dni}>
+              {`Nombre: ${element.user}`}<br/>
+              {`Telefono: ${element.telefono}`} <br/>
+              {`Hora registrada: ${element.hora}`}
+              
               <hr/>
               </div>
-
+              </Grid>
 
               );
           })}
-      </>
+      </Grid>
     );
   }
 };

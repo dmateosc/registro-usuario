@@ -16,7 +16,7 @@ var router = express.Router();
 //   UserController.getUser
 // );
 
-router.get("/get-users/:fecha",UserController.getUserFecha);
+router.get("/get-users-fecha",UserController.getUserFecha);
 router.get("/get-users-dia",UserController.getUserDia);
 router.get("/get-users",UserController.getUsers);
 router.post("/create-users", UserController.createUsers);

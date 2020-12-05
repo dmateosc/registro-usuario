@@ -72,6 +72,8 @@ const Usuarios = (props) => {
   } else {
     
     return (
+      <Grid container justify="center" xs={8}>
+      <Grid item xs={4}>
       <form className="formRegistry" onSubmit={submit} >
         <input type="text" id="filtro" onChange={(text) => filterText(text,elementos)}/>
         <select name="usuario" id="usuario" onChange={handleChange}>
@@ -82,6 +84,8 @@ const Usuarios = (props) => {
         </select>
         <input type="submit" value="Submit"/>
       </form>
+      </Grid>
+      </Grid>
     );
   }
 };

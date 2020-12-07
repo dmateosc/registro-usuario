@@ -39,7 +39,7 @@ const UsuarioDia = (props) =>{
     return (
       <Grid container justify="center" xs={8} alignItems="center">
         <Grid item xs={8}>
-         {`Usuarios Día: ${new Date().getDate()} del ${new Date().getMonth()} de ${new Date().getFullYear()}`}
+         {`Usuarios Día: ${new Date().getDate()} del ${new Date().getMonth()+1} de ${new Date().getFullYear()}`}
          <hr/>
         </Grid>
 
